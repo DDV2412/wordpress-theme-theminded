@@ -16,23 +16,24 @@ Tags: healthcare,medical,doctor,booking,appointment,clinic,hospital,responsive,c
   --secondary-color: #e2725b;
   --secondary-color-200: #f3c7bd;
   --transparent-color: transparent;
+  --rounded-l: 0.9375rem;
 }
 
 @font-face {
-  font-family: 'GT Walsheim Pro';
-  src: url('./assets/fonts/walsheim-bold.woff') format('woff');
+  font-family: "GT Walsheim Pro";
+  src: url("./assets/fonts/walsheim-bold.woff") format("woff");
   font-weight: 700;
 }
 
 @font-face {
-  font-family: 'GT Walsheim Pro';
-  src: url('./assets/fonts/walsheim-regular.woff') format('woff');
+  font-family: "GT Walsheim Pro";
+  src: url("./assets/fonts/walsheim-regular.woff") format("woff");
   font-weight: 400;
 }
 
 html {
   font-size: 16px;
-  font-family: 'GT Walsheim Pro';
+  font-family: "GT Walsheim Pro";
 }
 
 * {
@@ -46,37 +47,37 @@ body {
   padding: 0;
   margin: 0;
   font-size: 1rem;
-  font-family: 'GT Walsheim Pro';
+  font-family: "GT Walsheim Pro";
   font-weight: 400;
   transition: all 300ms ease-in-out;
 }
 h1 {
-  font-size: 3.812rem;
+  font-size: 3.25rem;
   font-weight: 700;
   letter-spacing: 0.3px;
 }
 h2 {
-  font-size: 3.062rem;
+  font-size: 2.875rem;
   font-weight: 700;
   letter-spacing: 0.3px;
 }
 h3 {
-  font-size: 2.438rem;
+  font-size: 2.562rem;
   font-weight: 400;
   letter-spacing: 0.3px;
 }
 h4 {
-  font-size: 1.938rem;
+  font-size: 2.25rem;
   font-weight: 400;
   letter-spacing: 0.3px;
 }
 h5 {
-  font-size: 1.562rem;
+  font-size: 2rem;
   font-weight: 400;
   letter-spacing: 0.3px;
 }
 h6 {
-  font-size: 1.25rem;
+  font-size: 1.812rem;
   font-weight: 400;
   letter-spacing: 0.3px;
 }
@@ -111,7 +112,7 @@ li {
   z-index: 999;
 }
 
-.navbar_wrapper {
+.navbar-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,7 +146,7 @@ li {
 .button-secondary {
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  font-family: 'GT Walsheim Pro';
+  font-family: "GT Walsheim Pro";
   background-color: var(--base-white);
   display: flex;
   justify-content: center;
@@ -154,10 +155,27 @@ li {
   transition: all 300ms ease-in-out;
   position: relative;
   overflow: hidden;
+  width: max-content;
+}
+
+.button-primary {
+  padding: 1.25rem 1.875rem;
+  border-radius: 0.75rem;
+  font-family: "GT Walsheim Pro";
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 300ms ease-in-out;
+  position: relative;
+  overflow: hidden;
+  width: max-content;
+  color: var(--base-white);
 }
 
 .button-secondary::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 10rem;
   height: 10rem;
@@ -243,6 +261,60 @@ li {
 .menu-button:hover .line.mid {
   width: 100%;
   transition: all 300ms ease-in-out;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-position: center;
+}
+
+.section_header {
+  padding: 9rem 0 4.5rem;
+}
+
+.hero-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.hero-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+
+.margin-top-small {
+  margin-top: 0.5rem;
+}
+
+.hero-image {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image .image-wrapper {
+  width: 80%;
+  position: relative;
+}
+
+.hero-image .image-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color-200);
+  border-radius: var(--rounded-l);
+  z-index: -1;
+}
+.hero-display {
+  font-weight: 400;
 }
 
 @media screen and (max-width: 991px) {
