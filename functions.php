@@ -1,5 +1,9 @@
 
 <?php
+include get_template_directory() . '/inc/the-minded.php';
+
+add_action('admin_menu', 'add_therapist_menu');
+
 function custom_theme_support() {
     add_theme_support('title-tag');
     add_theme_support('custom-logo');
@@ -206,3 +210,21 @@ function theme_enqueue_scripts()
 }
 
 add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
+
+// functions.php
+
+function custom_about_page_template($template) {
+    global $wp_query;
+
+    if (is_page('about')) {
+        $new_template = locate_template(array('templates/about.php'));
+
+        if (!empty($new_template)) {
+            return $new_template;
+        }
+    }
+
+    return $template;
+}
+
+add_filter('template_include', 'custom_about_page_template');
