@@ -11,12 +11,12 @@ function add_therapist_menu() {
             30                  // Menu Order
         );
         add_submenu_page(
-            'therapist',        // Slug menu utama
-            'All Therapists',   // Judul submenu
-            'All Therapists',   // Label submenu di sidebar admin
-            'manage_options',   // Capabilitas pengguna yang diizinkan untuk melihat submenu
+            'therapist',        // Slug Primary Menu
+            'All Therapists',   // Submenu Title
+            'All Therapists',   // Menu Label In Sidebar
+            'manage_options',   // Permission
             'therapist_list',   // Slug submenu
-            'therapist_list_page' // Fungsi untuk menampilkan halaman submenu
+            'therapist_list_page' //Function Sub Menu Page
         );
         add_submenu_page(
             null,
@@ -42,10 +42,7 @@ function therapist_detail_page() {
     echo '<div class="wrap">';
     echo '<h1>Therapist Detail</h1>';
 
-    // Dapatkan nilai slug dari URL
     $therapist_slug = isset($_GET['therapist']) ? sanitize_text_field($_GET['therapist']) : '';
-
-    // Tampilkan konten halaman detail terapis berdasarkan slug
     if ($therapist_slug) {
         echo '<p>Show details for therapist with slug: ' . esc_html($therapist_slug) . '</p>';
     } else {

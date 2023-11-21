@@ -26,6 +26,14 @@
                         ?>
                         <img src="<?php echo $logo[0] ?>" class="brand-logo" alt="<?php the_title() ?>" aria-label="<?php the_title() ?>" width="192px" height="70px" />
                     </a>
+                    <?php
+                        wp_nav_menu(array(
+                            'theme_location' => 'primary-menu',
+                            'menu_class'     => 'main-menu',
+                            'items_wrap'     => '<ul id="menu" class="navbar-menu">%3$s</ul>',
+                            'fallback_cb'    => false,
+                        ));
+                        ?>
                     <ul class="navbar-menu" id="menu">
                         <li><a href="/" class="navbar-link">About us</a></li>
                         <li><a href="/" class="navbar-link">Therapist Directory</a></li>

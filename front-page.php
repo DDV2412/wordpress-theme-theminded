@@ -3,7 +3,7 @@ get_header()
 ?>
 <main>
     <?php
-        get_template_part('template-parts/section', 'header')
+        get_template_part('template-parts/section', 'home-header')
     ?>
     <section class="section_global bg-color-grey">
         <div class="container">
