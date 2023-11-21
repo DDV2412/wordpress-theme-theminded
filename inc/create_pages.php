@@ -7,14 +7,14 @@ function create_pages() {
         'log-in' => 'Login', 
         'sign-up' => 'Sign Up', 
         'privacy-police' => 'Privacy Police', 
-        'terms-condition' => 'Terms and Condition', 
+        'terms-conditions' => 'Terms and Conditions', 
         'booking' => 'Booking', 
         'booking-success' => 'Booking Success', 
         'booking-history' => 'Booking History', 
         'payment' => 'Payment', 
-        'payment Method' => 'Payment Method', 
+        'payment-method' => 'Payment Method', 
         'profile' => 'Profile', 
-        'setting' => 'setting', 
+        'setting' => 'Setting', 
         'appoitment' => 'Upcoming Appointment', 
     );
 

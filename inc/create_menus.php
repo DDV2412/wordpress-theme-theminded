@@ -1,160 +1,177 @@
 <?php
-function register_menus() {
+function register_custom_menus() {
     register_nav_menus(array(
         'primary-menu' => 'Primary Menu',
         'footer-menu' => 'Footer Menu',
         'sidebar-menu' => 'Sidebar Menu',
+        'authentication' => 'Auth',
     ));
 }
 
 function create_custom_menus() {
-    $menus = array(
-        array(
-            'name' => 'Primary Menu',
-            'location' => 'primary-menu',
-            'items' => array(
-                array(
-                    'title' => 'Home',
-                    'object_id' => get_option('page_on_front'),
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'About',
-                    'object_id' => get_page_by_path('about')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Contact',
-                    'object_id' => get_page_by_path('contact')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Therapist Directory',
-                    'object_id' => get_page_by_path('therapist-directory')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Login',
-                    'object_id' => get_page_by_path('login')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Sign Up',
-                    'object_id' => get_page_by_path('sign-up')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-            ),
-        ),
-        array(
-            'name' => 'Footer Menu',
-            'location' => 'footer-menu',
-            'items' => array(
-                array(
-                    'title' => 'Home',
-                    'object_id' => get_option('page_on_front'),
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'About Us',
-                    'object_id' => get_page_by_path('about-us')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Therapist Directory',
-                    'object_id' => get_page_by_path('therapist-directory')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Privacy Policy',
-                    'object_id' => get_page_by_path('privacy-policy')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Terms and Conditions',
-                    'object_id' => get_page_by_path('terms-and-conditions')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-            ),
-        ),
-        array(
-            'name' => 'Sidebar Menu',
-            'location' => 'sidebar-menu',
-            'items' => array(
-                array(
-                    'title' => 'Profile',
-                    'object_id' => get_page_by_path('profile')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Upcoming Appointment',
-                    'object_id' => get_page_by_path('upcoming-appointment')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Booking History',
-                    'object_id' => get_page_by_path('booking-history')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Payment Method',
-                    'object_id' => get_page_by_path('payment-method')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-                array(
-                    'title' => 'Setting',
-                    'object_id' => get_page_by_path('setting')->ID,
-                    'object' => 'page',
-                    'type' => 'post_type',
-                    'status' => 'publish',
-                ),
-            ),
-        ),
-    );
+    /**
+     * Primary Menu
+     */
+    $primary_menu_name = 'Primary';
+    $primary_menu_exists = wp_get_nav_menu_object($primary_menu_name);
 
-    foreach ($menus as $menu) {
-        $menu_name = $menu['name'];
-        $menu_location = $menu['location'];
-        $menu_id = wp_create_nav_menu($menu_name);
+    if (!$primary_menu_exists) {
+        $primary_menu_id = wp_create_nav_menu($primary_menu_name);
+        $primary_menu_location = 'primary-menu';
+        $locations = get_theme_mod('nav_menu_locations');
+        $locations[$primary_menu_location] = $primary_menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
 
-        if ($menu_id && !empty($menu_location)) {
-            $locations = get_theme_mod('nav_menu_locations');
-            $locations[$menu_location] = $menu_id;
-            set_theme_mod('nav_menu_locations', $locations);
-        }
+        wp_update_nav_menu_item($primary_menu_id, 0, array(
+            'menu-item-title' => 'Home',
+            'menu-item-url' => home_url('/'),
+            'menu-item-status' => 'publish',
+        ));
 
-        foreach ($menu['items'] as $item) {
-            wp_update_nav_menu_item($menu_id, 0, $item);
-        }
+        wp_update_nav_menu_item($primary_menu_id, 0, array(
+            'menu-item-title' => 'About Us',
+            'menu-item-url' => home_url('/about'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($primary_menu_id, 0, array(
+            'menu-item-title' => 'Contact Us',
+            'menu-item-url' => home_url('/contact'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($primary_menu_id, 0, array(
+            'menu-item-title' => 'Therapist Directory',
+            'menu-item-url' => home_url('/therapist'),
+            'menu-item-status' => 'publish',
+        ));
     }
+
+    /**
+     * Footer Menu
+     */
+    $footer_menu_name = 'Footer';
+    $footer_menu_exists = wp_get_nav_menu_object($footer_menu_name);
+
+    if (!$footer_menu_exists) {
+        $footer_menu_id = wp_create_nav_menu($footer_menu_name);
+        $footer_menu_location = 'footer-menu';
+        $locations = get_theme_mod('nav_menu_locations');
+        $locations[$footer_menu_location] = $footer_menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
+
+        wp_update_nav_menu_item($footer_menu_id, 0, array(
+            'menu-item-title' => 'Home',
+            'menu-item-url' => home_url('/'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($footer_menu_id, 0, array(
+            'menu-item-title' => 'About Us',
+            'menu-item-url' => home_url('/about'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($footer_menu_id, 0, array(
+            'menu-item-title' => 'Contact Us',
+            'menu-item-url' => home_url('/contact'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($footer_menu_id, 0, array(
+            'menu-item-title' => 'Therapist Directory',
+            'menu-item-url' => home_url('/therapist'),
+            'menu-item-status' => 'publish',
+        ));
+
+         wp_update_nav_menu_item($footer_menu_id, 0, array(
+            'menu-item-title' => 'Privacy Police',
+            'menu-item-url' => home_url('/privacy-police'),
+            'menu-item-status' => 'publish',
+        ));
+
+         wp_update_nav_menu_item($footer_menu_id, 0, array(
+            'menu-item-title' => 'Terms and Conditions',
+            'menu-item-url' => home_url('/terms-conditions'),
+            'menu-item-status' => 'publish',
+        ));
+    }
+
+    /**
+     * Auth Menu
+     */
+    $auth_menu_name = 'Auth';
+    $auth_menu_exists = wp_get_nav_menu_object($auth_menu_name);
+
+    if (!$auth_menu_exists) {
+        $auth_menu_id = wp_create_nav_menu($auth_menu_name);
+        $auth_menu_location = 'authentication';
+        $locations = get_theme_mod('nav_menu_locations');
+        $locations[$auth_menu_location] = $auth_menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
+
+        wp_update_nav_menu_item($auth_menu_id, 0, array(
+            'menu-item-title' => 'Login',
+            'menu-item-url' => home_url('/log-in'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($auth_menu_id, 0, array(
+            'menu-item-title' => 'Sign Up',
+            'menu-item-url' => home_url('/sign-up'),
+            'menu-item-status' => 'publish',
+        ));
+
+    }
+
+
+     /**
+     * Sidebar Menu
+     */
+    $sidebar_menu_name = 'Sidebar Menu';
+    $sidebar_menu_exists = wp_get_nav_menu_object($sidebar_menu_name);
+
+    if (!$sidebar_menu_exists) {
+        $sidebar_menu_id = wp_create_nav_menu($sidebar_menu_name);
+        $sidebar_menu_location = 'sidebar-menu';
+        $locations = get_theme_mod('nav_menu_locations');
+        $locations[$sidebar_menu_location] = $sidebar_menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
+
+        wp_update_nav_menu_item($sidebar_menu_id, 0, array(
+            'menu-item-title' => 'Setting',
+            'menu-item-url' => home_url('/setting'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($sidebar_menu_id, 0, array(
+            'menu-item-title' => 'Upcoming Appointment',
+            'menu-item-url' => home_url('/appoitment'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($sidebar_menu_id, 0, array(
+            'menu-item-title' => 'Profile',
+            'menu-item-url' => home_url('/profile'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($sidebar_menu_id, 0, array(
+            'menu-item-title' => 'Booking History',
+            'menu-item-url' => home_url('/booking-history'),
+            'menu-item-status' => 'publish',
+        ));
+
+        wp_update_nav_menu_item($sidebar_menu_id, 0, array(
+            'menu-item-title' => 'Payment Method',
+            'menu-item-url' => home_url('/payment-method'),
+            'menu-item-status' => 'publish',
+        ));
+
+    }
+
+   
 }
+
+
 ?>

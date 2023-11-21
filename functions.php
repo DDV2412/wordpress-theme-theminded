@@ -12,8 +12,9 @@ add_action('customize_register', 'homepage_customize_register');
 add_action('customize_register', 'cta_customize_register');
 add_action('customize_register', 'about_customize_register');
 add_action('init', 'create_pages');
-add_action('after_switch_theme', 'create_custom_menus');
-add_action('init', 'register_menus');
+add_action('init', 'register_custom_menus');
+add_action('after_setup_theme', 'create_custom_menus');
+
 
 /** Add Logo For Navbar */
 function custom_theme_support() {
