@@ -4,7 +4,6 @@ function register_custom_menus() {
         'primary-menu' => 'Primary Menu',
         'footer-menu' => 'Footer Menu',
         'sidebar-menu' => 'Sidebar Menu',
-        'authentication' => 'Auth',
     ));
 }
 
@@ -95,33 +94,6 @@ function create_custom_menus() {
             'menu-item-url' => home_url('/terms-conditions'),
             'menu-item-status' => 'publish',
         ));
-    }
-
-    /**
-     * Auth Menu
-     */
-    $auth_menu_name = 'Auth';
-    $auth_menu_exists = wp_get_nav_menu_object($auth_menu_name);
-
-    if (!$auth_menu_exists) {
-        $auth_menu_id = wp_create_nav_menu($auth_menu_name);
-        $auth_menu_location = 'authentication';
-        $locations = get_theme_mod('nav_menu_locations');
-        $locations[$auth_menu_location] = $auth_menu_id;
-        set_theme_mod('nav_menu_locations', $locations);
-
-        wp_update_nav_menu_item($auth_menu_id, 0, array(
-            'menu-item-title' => 'Login',
-            'menu-item-url' => home_url('/log-in'),
-            'menu-item-status' => 'publish',
-        ));
-
-        wp_update_nav_menu_item($auth_menu_id, 0, array(
-            'menu-item-title' => 'Sign Up',
-            'menu-item-url' => home_url('/sign-up'),
-            'menu-item-status' => 'publish',
-        ));
-
     }
 
 
